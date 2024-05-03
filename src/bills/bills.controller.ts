@@ -1,15 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { BillsService } from './bills.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { BillService } from './bills.service';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
+import { DeepPartial } from 'typeorm';
+import { Bill } from './entities/bill.entity';
 
 @Controller('bills')
 export class BillsController {
-  constructor(private readonly billsService: BillsService) {}
+  constructor(private readonly billsService: BillService) {}
 
   @Post()
   create(@Body() createBillDto: CreateBillDto) {
-    return this.billsService.create(createBillDto);
+    return this.billsService.create(createBillDto as DeepPartial<Bill>);
   }
 
   @Get()

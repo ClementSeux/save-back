@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ItemsService } from './items.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { ItemService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { QueryPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { Item } from './entities/item.entity';
 
 @Controller('items')
 export class ItemsController {
-  constructor(private readonly itemsService: ItemsService) {}
+  constructor(private readonly itemsService: ItemService) {}
 
   @Post()
   create(@Body() createItemDto: CreateItemDto) {
@@ -24,7 +34,10 @@ export class ItemsController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
-    return this.itemsService.update(+id, updateItemDto);
+    return this.itemsService.update(
+      +id,
+      updateItemDto as QueryPartialEntity<Item>,
+    );
   }
 
   @Delete(':id')

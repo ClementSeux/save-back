@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ResellersService } from './resellers.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { ResellerService } from './resellers.service';
 import { CreateResellerDto } from './dto/create-reseller.dto';
 import { UpdateResellerDto } from './dto/update-reseller.dto';
+import { DeepPartial } from 'typeorm';
+import { Reseller } from './entities/reseller.entity';
 
 @Controller('resellers')
 export class ResellersController {
-  constructor(private readonly resellersService: ResellersService) {}
+  constructor(private readonly resellersService: ResellerService) {}
 
   @Post()
   create(@Body() createResellerDto: CreateResellerDto) {
@@ -23,8 +33,14 @@ export class ResellersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateResellerDto: UpdateResellerDto) {
-    return this.resellersService.update(+id, updateResellerDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateResellerDto: UpdateResellerDto,
+  ) {
+    return this.resellersService.update(
+      +id,
+      updateResellerDto as DeepPartial<Reseller>,
+    );
   }
 
   @Delete(':id')

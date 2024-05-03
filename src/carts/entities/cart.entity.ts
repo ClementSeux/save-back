@@ -3,27 +3,37 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   Entity,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from 'typeorm';
-import { ManyToOne, JoinColumn } from 'typeorm';
 import { UserCart } from 'src/user_carts/entities/user_cart.entity';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDate, isDate, IsNotEmpty } from 'class-validator';
 
 @Entity()
 export class Cart {
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty()
+  @IsNotEmpty()
   @ManyToOne(() => User, (user) => user.createdCarts)
   expert: User;
 
+  @ApiProperty()
+  @IsNotEmpty()
   @ManyToOne(() => Reseller, (reseller) => reseller.carts)
   reseller: Reseller;
 
+  @ApiProperty()
+  @IsDate()
   @Column()
   availableFrom: Date;
 
+  @ApiProperty()
+  @IsDate()
   @Column()
   availableTo: Date;
 

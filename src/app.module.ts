@@ -18,7 +18,7 @@ import { CustomNotesModule } from './custom_notes/custom_notes.module';
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env' }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'mariadb',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT || 3307,
       username: process.env.DB_USER,
