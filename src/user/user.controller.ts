@@ -14,14 +14,18 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from 'src/auth/security/roles.decorator';
 import { Role } from './enums/role.enums';
 import { RolesGuard } from 'src/auth/security/roles.guard';
+import { Logger } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  static logger = new Logger('UserController');
+
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    console.log('createUserDto', createUserDto);
+    Logger.log('post user received');
+
     return this.userService.create(createUserDto);
   }
 

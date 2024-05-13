@@ -10,14 +10,17 @@ import {
 import { ProductService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Logger } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductService) {}
 
+  static logger = new Logger('ProductsController');
+
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
-    console.log('createProductDto', createProductDto);
+    Logger.log('post product received');
     return this.productsService.create(createProductDto);
   }
 
