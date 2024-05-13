@@ -20,5 +20,8 @@ export default new DataSource({
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   migrationsRun: false,
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
-  ssl: process.env.ENV === 'prod' ? { ca: process.env.DB_SSL_CA } : false,
+  ssl:
+    process.env.ENV === 'prod'
+      ? { rejectUnauthorized: true, ca: process.env.DB_SSL_CA }
+      : false,
 });

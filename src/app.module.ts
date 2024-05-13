@@ -29,7 +29,10 @@ import { TokenController } from './auth/token/token.controller';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: process.env.ENV === 'dev',
-      ssl: process.env.ENV === 'prod' ? { ca: process.env.DB_SSL_CA } : false,
+      ssl:
+        process.env.ENV === 'prod'
+          ? { rejectUnauthorized: true, ca: process.env.DB_SSL_CA }
+          : false,
     }),
     UserModule,
     CartsModule,
