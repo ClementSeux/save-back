@@ -13,6 +13,17 @@ import { ProductsModule } from './products/products.module';
 import { PaymentsModule } from './payments/payments.module';
 import { UserCartsModule } from './user_carts/user_carts.module';
 import { CustomNotesModule } from './custom_notes/custom_notes.module';
+import { AuthModule } from './auth/auth.module';
+import { TokenController } from './auth/token/token.controller';
+
+const getSSLConfig = () => {
+  if (process.env.ENV === 'prod') {
+    return {
+      ca: process.env.DB_SSL_CA,
+    };
+  }
+  return false;
+};
 
 @Module({
   imports: [
@@ -27,6 +38,7 @@ import { CustomNotesModule } from './custom_notes/custom_notes.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: process.env.ENV === 'dev',
+      ssl: getSSLConfig(),
     }),
     UserModule,
     CartsModule,
@@ -38,6 +50,7 @@ import { CustomNotesModule } from './custom_notes/custom_notes.module';
     PaymentsModule,
     UserCartsModule,
     CustomNotesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

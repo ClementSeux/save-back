@@ -14,6 +14,7 @@ import { Cart } from '../../carts/entities/cart.entity';
 import { Bill } from 'src/bills/entities/bill.entity';
 import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -23,14 +24,14 @@ export class User {
 
   @ApiProperty()
   @Column({ type: 'varchar', length: 40 })
-  @Unique(['uName'])
   uName: string;
 
   @ApiProperty()
   @Column({ type: 'varchar', length: 120 })
+  @Unique(['email'])
   email: string;
 
-  @ApiProperty()
+  @Exclude()
   @Column()
   password: string;
 

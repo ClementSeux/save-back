@@ -18,6 +18,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -33,8 +34,11 @@ export class UserService {
   @Post()
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
+      const salt = process.env.SALT || 10;
+      const hash = await bcrypt.hash(createUserDto.password, salt);
       return await this.userRepository.save({
         ...createUserDto,
+        password: hash,
         uName: createUserDto.name,
       });
     } catch (error) {
@@ -67,6 +71,20 @@ export class UserService {
     return user;
   }
 
+  @ApiOperation({ summary: 'Find a user by email' })
+  @ApiOkResponse({
+    description: 'Return the user.',
+    type: User,
+  })
+  @Get('email/:email')
+  async findOneByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ email });
+    if (!user) {
+      throw new NotFoundException(`User ${email} not found`);
+    }
+    return user;
+  }
+
   @ApiOperation({ summary: 'Update a user' })
   @ApiNotFoundResponse({
     description: 'User not found.',
@@ -78,7 +96,14 @@ export class UserService {
   @Patch(':id')
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
-      let done = await this.userRepository.update(id, updateUserDto);
+      const editedDto = { ...updateUserDto, uName: updateUserDto.name };
+      if (updateUserDto.password) {
+        const salt = process.env.SALT || 10;
+        const hash = await bcrypt.hash(updateUserDto.password, salt);
+        editedDto.password = hash;
+      }
+
+      let done = await this.userRepository.update(id, editedDto);
       if (done.affected != 1) {
         throw new NotFoundException(`User #${id} not found`);
       }

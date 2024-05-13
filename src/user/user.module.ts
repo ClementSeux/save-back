@@ -13,6 +13,7 @@ import { Item } from 'src/items/entities/item.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { Step } from 'src/steps/entities/step.entity';
 import { UserCart } from 'src/user_carts/entities/user_cart.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -31,6 +32,6 @@ import { UserCart } from 'src/user_carts/entities/user_cart.entity';
   ],
 
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, JwtService],
 })
 export class UserModule {}
