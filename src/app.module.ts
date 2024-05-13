@@ -31,7 +31,7 @@ import { TokenController } from './auth/token/token.controller';
       synchronize: process.env.ENV === 'dev',
       ssl:
         process.env.ENV === 'prod'
-          ? { rejectUnauthorized: true, ca: process.env.DB_SSL_CA }
+          ? { rejectUnauthorized: true, ca: process.env.CERT_SSL }
           : false,
     }),
     UserModule,
