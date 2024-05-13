@@ -20,7 +20,7 @@ import { TokenController } from './auth/token/token.controller';
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env' }),
     TypeOrmModule.forRoot({
-      type: 'mariadb',
+      type: process.env.ENV === 'prod' ? 'mysql' : 'mariadb',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT || 3307,
       username: process.env.DB_USER,

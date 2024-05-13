@@ -11,7 +11,7 @@ console.log(
 );
 
 export default new DataSource({
-  type: 'mariadb',
+  type: process.env.ENV === 'prod' ? 'mysql' : 'mariadb',
   host: process.env.DB_HOST || 'localhost',
   port: +process.env.DB_PORT || 3307,
   username: process.env.DB_USER,

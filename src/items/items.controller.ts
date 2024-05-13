@@ -21,7 +21,6 @@ export class ItemsController {
   create(@Body() createItemDto: CreateItemDto) {
     return {
       message: 'Item created successfully',
-      data: this.itemsService.create(createItemDto),
     };
   }
 
