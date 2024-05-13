@@ -26,6 +26,7 @@ export class ProductsController {
 
   @Get()
   findAll() {
+    Logger.log('get all products received');
     return this.productsService.findAll();
   }
 
