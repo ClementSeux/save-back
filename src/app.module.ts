@@ -20,7 +20,7 @@ import { TokenController } from './auth/token/token.controller';
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env' }),
     TypeOrmModule.forRoot({
-      type: process.env.ENV === 'prod' ? 'mysql' : 'mariadb',
+      type: process.env.ENV === 'prodmysql' ? 'mysql' : 'mariadb',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT || 3307,
       username: process.env.DB_USER,
@@ -29,10 +29,6 @@ import { TokenController } from './auth/token/token.controller';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: process.env.ENV === 'dev',
-      ssl:
-        process.env.ENV === 'prod'
-          ? { rejectUnauthorized: true, ca: process.env.CERT_SSL }
-          : false,
     }),
     UserModule,
     CartsModule,

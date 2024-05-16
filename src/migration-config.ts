@@ -11,7 +11,7 @@ console.log(
 );
 
 export default new DataSource({
-  type: process.env.ENV === 'prod' ? 'mysql' : 'mariadb',
+  type: process.env.ENV === 'prodmysql' ? 'mysql' : 'mariadb',
   host: process.env.DB_HOST || 'localhost',
   port: +process.env.DB_PORT || 3307,
   username: process.env.DB_USER,
@@ -20,8 +20,4 @@ export default new DataSource({
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   migrationsRun: false,
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
-  ssl:
-    process.env.ENV === 'prod'
-      ? { rejectUnauthorized: true, ca: process.env.CERT_SSL }
-      : false,
 });
