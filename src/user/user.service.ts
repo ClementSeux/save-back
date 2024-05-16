@@ -79,7 +79,7 @@ export class UserService {
     description: 'Return the user.',
     type: User,
   })
-  async me(@Headers('authorization') authHeader: string): Promise<User> {
+  async me(authHeader: string): Promise<User> {
     // retrieve user from token
     const token = authHeader.split(' ')[1];
     const payload = jwt.decode(token) as { id: number };

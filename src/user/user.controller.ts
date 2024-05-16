@@ -15,6 +15,7 @@ import { Roles } from 'src/auth/security/roles.decorator';
 import { Role } from './enums/role.enums';
 import { RolesGuard } from 'src/auth/security/roles.guard';
 import { Logger } from '@nestjs/common';
+import { Headers } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -43,8 +44,8 @@ export class UserController {
 
   // who am i route. get by token
   @Get('me')
-  me() {
-    return this.userService.me();
+  me(@Headers('authorization') authHeader: string) {
+    return this.userService.me(authHeader);
   }
 
   @UseGuards(RolesGuard)
