@@ -19,10 +19,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, { httpsOptions });
 
-  app.enableCors({
-    origin: '*',
-    allowedHeaders: '*',
-  });
+  app.enableCors();
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));

@@ -41,6 +41,12 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
+  // who am i route. get by token
+  @Get('me')
+  me() {
+    return this.userService.me();
+  }
+
   @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   @Patch(':id')

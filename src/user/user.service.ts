@@ -19,6 +19,9 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import * as bcrypt from 'bcryptjs';
+import { Request } from 'express';
+import { Headers } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -67,6 +70,23 @@ export class UserService {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
+    }
+    return user;
+  }
+
+  @ApiOperation({ summary: 'Find the current user' })
+  @ApiOkResponse({
+    description: 'Return the user.',
+    type: User,
+  })
+  async me(@Headers('authorization') authHeader: string): Promise<User> {
+    // retrieve user from token
+    const token = authHeader.split(' ')[1];
+    const payload = jwt.decode(token) as { id: number };
+    const user = await this.userRepository.findOneBy({ id: payload.id });
+
+    if (!user) {
+      throw new NotFoundException(`User #1 not found`);
     }
     return user;
   }
