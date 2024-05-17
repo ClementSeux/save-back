@@ -6,6 +6,7 @@ import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { PassportModule } from '@nestjs/passport';
 import { MyBasicStrategy } from './security/strategies/my-basic.strategy';
+import { UserRepository } from 'src/user/repository/user.repository';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { MyBasicStrategy } from './security/strategies/my-basic.strategy';
         audience: process.env.JWT_AUDIENCE || 'save.com',
       },
     }),
-    TypeOrmModule.forFeature([User, JwtModule]),
+    TypeOrmModule.forFeature([User, JwtModule, UserRepository]),
   ],
   controllers: [TokenController],
   providers: [UserService, JwtService, MyBasicStrategy],
