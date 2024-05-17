@@ -42,12 +42,6 @@ export class BillService {
     }
   }
 
-  
-  async findByUserId(userId: number): Promise<Bill[]> {
-    return this.billRepository.find({ where: { userId } });
-  }
-
-
   @ApiOperation({ summary: 'Find all bills' })
   @ApiOkResponse({
     description: 'Return all bills.',
