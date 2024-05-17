@@ -43,9 +43,10 @@ export class UserController {
   }
 
   // who am i route. get by token
+  // url: /user/me
   @Get('me')
   me(@Headers('authorization') authHeader: string) {
-    return this.userService.me(authHeader);
+    return this.userService.me(authHeader, (msg) => Logger.log(msg));
   }
 
   @UseGuards(RolesGuard)

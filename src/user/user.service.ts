@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   Injectable,
+  Logger,
   NotFoundException,
   Patch,
   Post,
@@ -79,10 +80,13 @@ export class UserService {
     description: 'Return the user.',
     type: User,
   })
-  async me(authHeader: string): Promise<User> {
+  async me(authHeader: string, logger: (msg) => void): Promise<User> {
     // retrieve user from token
+    logger('authHeader: ' + authHeader);
     const token = authHeader.split(' ')[1];
+    logger('token: ' + token);
     const payload = jwt.decode(token) as { id: number };
+    logger('payload: ' + payload);
     const user = await this.userRepository.findOneBy({ id: payload.id });
 
     if (!user) {
