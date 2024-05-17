@@ -94,7 +94,7 @@ export class UserService {
     logger('token: ' + token);
     const payload = jwt.decode(token) as { id: number };
     logger('payload: ' + payload);
-    return await this.userRepository.findOneBy({ id: payload.id });
+    return await this.userRepository.retrieveAllUserData(payload.id);
   }
 
   @ApiOperation({ summary: 'Find a user by email' })

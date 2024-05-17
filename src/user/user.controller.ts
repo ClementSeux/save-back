@@ -46,6 +46,7 @@ export class UserController {
     @Headers('authorization') authHeader: string,
   ) {
     if (id === 'me') {
+      Logger.log('me route');
       return this.userService.me(authHeader, (msg) => Logger.log(msg));
     }
     return this.userService.findOne(+id);
