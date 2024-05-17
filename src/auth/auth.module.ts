@@ -12,6 +12,7 @@ import { BillService } from 'src/bills/bills.service';
 import { ProductsModule } from 'src/products/products.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { BillsModule } from 'src/bills/bills.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { BillsModule } from 'src/bills/bills.module';
       },
     }),
     TypeOrmModule.forFeature([User, JwtModule]),
-
+    UserModule,
     ProductsModule,
     PaymentsModule,
     BillsModule,
