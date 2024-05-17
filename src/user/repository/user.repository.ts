@@ -2,6 +2,7 @@ import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { Payment } from 'src/payments/entities/payment.entity';
 import { Product } from 'src/products/entities/product.entity';
+import { Injectable } from '@nestjs/common';
 
 type BillData = {
   id: number;
@@ -16,6 +17,7 @@ export type UserData = {
   bills: BillData[];
 };
 
+@Injectable()
 export class UserRepository extends Repository<User> {
   private userRepository: Repository<User>;
 
