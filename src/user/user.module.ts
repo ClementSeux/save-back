@@ -19,7 +19,7 @@ import { UserRepository } from './repository/user.repository';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      User,
+      UserRepository,
       Reseller,
       Cart,
       Payment,
@@ -33,6 +33,6 @@ import { UserRepository } from './repository/user.repository';
   ],
 
   controllers: [UserController],
-  providers: [UserService, JwtService, UserRepository],
+  providers: [UserService, JwtService],
 })
 export class UserModule {}
