@@ -27,9 +27,6 @@ export class TokenController {
   constructor(
     private readonly users: UserService,
     private jwts: JwtService,
-    private readonly payments: PaymentService,
-    private readonly products: ProductService,
-    private readonly bills: BillService,
   ) {}
 
   @ApiOperation({
