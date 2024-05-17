@@ -17,10 +17,6 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { Payment } from 'src/payments/entities/payment.entity';
-import { PaymentService } from 'src/payments/payments.service';
-import { ProductService } from 'src/products/products.service';
-import { BillService } from 'src/bills/bills.service';
 
 @Controller('auth/token')
 export class TokenController {
