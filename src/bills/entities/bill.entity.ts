@@ -19,7 +19,7 @@ export class Bill {
 
   @ApiProperty()
   @ManyToOne(() => User, (user) => user.bills)
-  user: User;
+  userId: User;
 
   @OneToMany(() => Payment, (payment) => payment.bill)
   payments: Payment[];
