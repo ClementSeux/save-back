@@ -49,6 +49,6 @@ export class User {
   userCarts: UserCart[];
 
   @ApiProperty()
-  @OneToMany(() => Bill, (bill) => bill.userId)
+  @OneToMany(() => Bill, (bill) => bill.user)
   bills: Bill[];
 }

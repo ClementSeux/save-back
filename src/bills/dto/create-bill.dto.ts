@@ -10,7 +10,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateBillDto {
   @ApiProperty()
   @IsNotEmpty()
-  readonly userId: number;
+  readonly user: number;
 
   @ApiProperty()
   @IsDefined()
