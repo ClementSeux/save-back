@@ -12,7 +12,7 @@ import { User } from 'src/user/entities/user.entity';
 export class CreateBillDto {
   @ApiProperty()
   @IsNotEmpty()
-  readonly user: User;
+  readonly user: () => User;
 
   @ApiProperty()
   @IsDefined()
