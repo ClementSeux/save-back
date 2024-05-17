@@ -37,6 +37,7 @@ export class PaymentService {
     try {
       return await this.paymentRepository.save({
         ...createPaymentDto,
+        timestamp: new Date(),
       });
     } catch (error) {
       throw new ConflictException(error.message);
