@@ -46,6 +46,7 @@ export class UserController {
   // url: /user/me
   @Get('me')
   me(@Headers('authorization') authHeader: string) {
+    Logger.log('me route');
     return this.userService.me(authHeader, (msg) => Logger.log(msg));
   }
 
