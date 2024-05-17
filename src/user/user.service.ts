@@ -11,7 +11,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { UserRepository, UserData } from './repository/user.repository';
 import { User } from './entities/user.entity';
 import { Bill } from 'src/bills/entities/bill.entity';
@@ -30,12 +30,29 @@ import * as bcrypt from 'bcryptjs';
 import { Request } from 'express';
 import { Headers } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
+import { Role } from './enums/role.enums';
+
+type BillsData = {
+  id: number;
+  payments: Payment[];
+  products: Product[];
+};
+type UserData = {
+  id: number;
+  uName: string;
+  email: string;
+  role: Role;
+  bills: BillsData[];
+};
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserRepository)
-    private readonly userRepository: UserRepository,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    private readonly billService: BillService,
+    private readonly paymentService: PaymentService,
+    private readonly productService: ProductService,
   ) {}
 
   @ApiOperation({ summary: 'Create a user' })
@@ -95,7 +112,19 @@ export class UserService {
     logger('token: ' + token);
     const payload = jwt.decode(token) as { id: number };
     logger('payload: ' + payload);
-    return await this.userRepository.retrieveAllUserData(payload.id);
+    const userData = await this.userRepository.findOneBy({
+      id: payload.id,
+    });
+    if (!userData) {
+      throw new NotFoundException(`User #${payload.id} not found`);
+    }
+    userData.bills = await this.billService.findAllByUser(userData);
+    userData.bills.forEach(async (bill) => {
+      bill.payments = await this.paymentService.findAllByBill(bill);
+      bill.products = await this.productService.findAllByBill(bill);
+    });
+
+    return userData;
   }
 
   @ApiOperation({ summary: 'Find a user by email' })

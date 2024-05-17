@@ -18,11 +18,13 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import { Bill } from 'src/bills/entities/bill.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectRepository(Product) private readonly productRepository: Repository<Product>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
   @ApiOperation({ summary: 'Create a product' })
@@ -65,6 +67,10 @@ export class ProductService {
       throw new NotFoundException(`Product #${id} not found`);
     }
     return product;
+  }
+
+  findAllByBill(bill: Bill): Promise<Product[]> {
+    return this.productRepository.find({ where: { bills: bill } });
   }
 
   @ApiOperation({ summary: 'Update a product' })

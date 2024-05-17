@@ -18,6 +18,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import { Bill } from 'src/bills/entities/bill.entity';
 
 @Injectable()
 export class PaymentService {
@@ -51,6 +52,10 @@ export class PaymentService {
   @Get()
   async findAll(): Promise<Payment[]> {
     return this.paymentRepository.find();
+  }
+
+  findAllByBill(bill: Bill): Promise<Payment[]> {
+    return this.paymentRepository.find({ where: { bill: bill } });
   }
 
   @ApiOperation({ summary: 'Find a payment by id' })

@@ -21,6 +21,7 @@ import {
 } from '@nestjs/swagger';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class BillService {
@@ -65,6 +66,10 @@ export class BillService {
       throw new NotFoundException(`Bill #${id} not found`);
     }
     return bill;
+  }
+
+  findAllByUser(user: User) {
+    return this.billRepository.find({ where: { user: user } });
   }
 
   @ApiOperation({ summary: 'Update a bill' })

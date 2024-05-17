@@ -14,13 +14,11 @@ import { Product } from 'src/products/entities/product.entity';
 import { Step } from 'src/steps/entities/step.entity';
 import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from './repository/user.repository';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       User,
-      UserRepository,
       Reseller,
       Cart,
       Payment,
