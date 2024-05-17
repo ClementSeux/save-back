@@ -113,7 +113,12 @@ export class UserService {
     logger('payload: ' + payload);
     const userData = await this.userRepository.find({
       where: { id: payload.id },
-      relations: ['bills'],
+      relations: {
+        bills: {
+          payments: true,
+          products: true,
+        },
+      },
     });
     if (!userData) {
       throw new NotFoundException(`User #${payload.id} not found`);
