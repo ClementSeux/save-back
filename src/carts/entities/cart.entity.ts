@@ -20,7 +20,7 @@ export class Cart {
   @ApiProperty()
   @IsNotEmpty()
   @ManyToOne(() => User, (user) => user.createdCarts)
-  expert: User;
+  expert: () => User;
 
   @ApiProperty()
   @IsNotEmpty()
