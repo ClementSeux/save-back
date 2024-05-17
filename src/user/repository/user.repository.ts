@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { Payment } from 'src/payments/entities/payment.entity';
 import { Product } from 'src/products/entities/product.entity';
@@ -18,6 +18,7 @@ export type UserData = {
 };
 
 @Injectable()
+@EntityRepository(User)
 export class UserRepository extends Repository<User> {
   private userRepository: Repository<User>;
 
