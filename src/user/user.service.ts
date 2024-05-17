@@ -104,24 +104,25 @@ export class UserService {
     description: 'Return the user.',
     type: User,
   })
-  async me(authHeader: string, logger: (msg) => void): Promise<UserData> {
+  async me(authHeader: string, logger: (msg) => void): Promise<any> {
     // retrieve user from token
     logger('authHeader: ' + authHeader);
     const token = authHeader.split(' ')[1];
     logger('token: ' + token);
     const payload = jwt.decode(token) as { id: number };
     logger('payload: ' + payload);
-    const userData = await this.userRepository.findOneBy({
-      id: payload.id,
+    const userData = await this.userRepository.find({
+      where: { id: payload.id },
+      relations: ['bills'],
     });
     if (!userData) {
       throw new NotFoundException(`User #${payload.id} not found`);
     }
-    userData.bills = await this.billService.findAllByUser(userData);
-    userData.bills.forEach(async (bill) => {
-      bill.payments = await this.paymentService.findAllByBill(bill);
-      bill.products = await this.productService.findAllByBill(bill);
-    });
+    // userData.bills = await this.billService.findAllByUser(userData);
+    // userData.bills.forEach(async (bill) => {
+    //   bill.payments = await this.paymentService.findAllByBill(bill);
+    //   bill.products = await this.productService.findAllByBill(bill);
+    // });
 
     return userData;
   }

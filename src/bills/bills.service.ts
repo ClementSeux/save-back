@@ -69,7 +69,7 @@ export class BillService {
   }
 
   findAllByUser(user: User) {
-    return this.billRepository.find({ where: { user: user } });
+    return this.billRepository.find({ where: {userId: user.id} });
   }
 
   @ApiOperation({ summary: 'Update a bill' })
