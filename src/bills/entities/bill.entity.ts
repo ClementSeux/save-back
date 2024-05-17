@@ -22,8 +22,8 @@ export class Bill {
   user: () => User;
 
   @OneToMany(() => Payment, (payment) => payment.bill)
-  payments: Payment[];
+  payments: () => Payment[];
 
   @ManyToMany(() => Product, (product) => product.bills)
-  products: Product[];
+  products: () => Product[];
 }

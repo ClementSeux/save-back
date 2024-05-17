@@ -1,5 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from 'src/user/entities/user.entity';
 
 export class CreateCartDto {
   @ApiProperty()
@@ -20,5 +21,5 @@ export class CreateCartDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly userId: number;
+  readonly user: () => User;
 }
