@@ -68,9 +68,6 @@ export class BillService {
     return bill;
   }
 
-  findAllByUser(user: User) {
-    return this.billRepository.find({ where: {userId: user.id} });
-  }
 
   @ApiOperation({ summary: 'Update a bill' })
   @ApiNotFoundResponse({
