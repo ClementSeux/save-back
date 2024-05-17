@@ -25,7 +25,7 @@ export class Cart {
   @ApiProperty()
   @IsNotEmpty()
   @ManyToOne(() => Reseller, (reseller) => reseller.carts)
-  reseller: Reseller;
+  reseller: () => Reseller;
 
   @ApiProperty()
   @IsDate()
@@ -38,5 +38,5 @@ export class Cart {
   availableTo: Date;
 
   @OneToMany(() => UserCart, (user_cart) => user_cart.cart)
-  userCarts: UserCart[];
+  userCarts: () => UserCart[];
 }
