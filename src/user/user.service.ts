@@ -11,8 +11,15 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Not } from 'typeorm';
+import { UserRepository, UserData } from './repository/user.repository';
 import { User } from './entities/user.entity';
+import { Bill } from 'src/bills/entities/bill.entity';
+import { BillService } from 'src/bills/bills.service';
+import { Payment } from 'src/payments/entities/payment.entity';
+import { PaymentService } from 'src/payments/payments.service';
+import { Product } from 'src/products/entities/product.entity';
+import { ProductService } from 'src/products/products.service';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -27,7 +34,7 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(User) private readonly userRepository: UserRepository,
   ) {}
 
   @ApiOperation({ summary: 'Create a user' })
@@ -80,19 +87,14 @@ export class UserService {
     description: 'Return the user.',
     type: User,
   })
-  async me(authHeader: string, logger: (msg) => void): Promise<User> {
+  async me(authHeader: string, logger: (msg) => void): Promise<UserData> {
     // retrieve user from token
     logger('authHeader: ' + authHeader);
     const token = authHeader.split(' ')[1];
     logger('token: ' + token);
     const payload = jwt.decode(token) as { id: number };
     logger('payload: ' + payload);
-    const user = await this.userRepository.findOneBy({ id: payload.id });
-
-    if (!user) {
-      throw new NotFoundException(`User #1 not found`);
-    }
-    return user;
+    return await this.userRepository.findOneBy({ id: payload.id });
   }
 
   @ApiOperation({ summary: 'Find a user by email' })
