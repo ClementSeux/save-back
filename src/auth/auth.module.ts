@@ -13,6 +13,9 @@ import { ProductsModule } from 'src/products/products.module';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { BillsModule } from 'src/bills/bills.module';
 import { UserModule } from 'src/user/user.module';
+import { Payment } from 'src/payments/entities/payment.entity';
+import { Product } from 'src/products/entities/product.entity';
+import { Bill } from 'src/bills/entities/bill.entity';
 
 @Module({
   imports: [
@@ -35,8 +38,11 @@ import { UserModule } from 'src/user/user.module';
     JwtService,
     MyBasicStrategy,
     PaymentService,
+    Payment,
     ProductService,
+    Product,
     BillService,
+    Bill,
   ],
 })
 export class AuthModule {}
