@@ -14,6 +14,9 @@ import { Product } from 'src/products/entities/product.entity';
 import { Step } from 'src/steps/entities/step.entity';
 import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { JwtService } from '@nestjs/jwt';
+import { PaymentService } from 'src/payments/payments.service';
+import { ProductService } from 'src/products/products.service';
+import { BillService } from 'src/bills/bills.service';
 
 @Module({
   imports: [
@@ -32,6 +35,12 @@ import { JwtService } from '@nestjs/jwt';
   ],
 
   controllers: [UserController],
-  providers: [UserService, JwtService],
+  providers: [
+    UserService,
+    JwtService,
+    PaymentService,
+    ProductService,
+    BillService,
+  ],
 })
 export class UserModule {}
