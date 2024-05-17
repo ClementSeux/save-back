@@ -7,9 +7,11 @@ import { UserService } from 'src/user/user.service';
 import { PassportModule } from '@nestjs/passport';
 import { MyBasicStrategy } from './security/strategies/my-basic.strategy';
 import { PaymentService } from 'src/payments/payments.service';
-import { Product } from 'src/products/entities/product.entity';
 import { ProductService } from 'src/products/products.service';
 import { BillService } from 'src/bills/bills.service';
+import { ProductsModule } from 'src/products/products.module';
+import { PaymentsModule } from 'src/payments/payments.module';
+import { BillsModule } from 'src/bills/bills.module';
 
 @Module({
   imports: [
@@ -21,15 +23,11 @@ import { BillService } from 'src/bills/bills.service';
       },
     }),
     TypeOrmModule.forFeature([User, JwtModule]),
+    ProductsModule,
+    PaymentsModule,
+    BillsModule,
   ],
   controllers: [TokenController],
-  providers: [
-    UserService,
-    JwtService,
-    MyBasicStrategy,
-    PaymentService,
-    ProductService,
-    BillService,
-  ],
+  providers: [UserService, JwtService, MyBasicStrategy],
 })
 export class AuthModule {}
