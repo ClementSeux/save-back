@@ -12,7 +12,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
-import { UserRepository, UserData } from './repository/user.repository';
 import { User } from './entities/user.entity';
 import { Bill } from 'src/bills/entities/bill.entity';
 import { BillService } from 'src/bills/bills.service';
