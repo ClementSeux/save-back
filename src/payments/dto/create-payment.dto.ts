@@ -8,5 +8,5 @@ export class CreatePaymentDto {
 
   @ApiProperty()
   @IsDefined()
-  billId: number;
+  bill: number;
 }
