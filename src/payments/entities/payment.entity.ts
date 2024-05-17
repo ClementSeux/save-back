@@ -20,8 +20,9 @@ export class Payment {
   @Column({ type: 'enum', enum: PaymentStatus, default: PaymentStatus.PENDING })
   status: string;
 
+  //  timestamp automatiquement generated
   @ApiProperty()
-  @Column()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
   @ManyToOne(() => Bill, (bill) => bill.payments)
