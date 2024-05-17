@@ -34,7 +34,8 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: UserRepository,
+    @InjectRepository(UserRepository)
+    private readonly userRepository: UserRepository,
   ) {}
 
   @ApiOperation({ summary: 'Create a user' })
