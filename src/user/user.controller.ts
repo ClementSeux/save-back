@@ -37,17 +37,18 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
-
   // who am i route. get by token
   // url: /user/me
-  @Get('/me')
-  me(@Headers('authorization') authHeader: string) {
-    Logger.log('me route');
-    return this.userService.me(authHeader, (msg) => Logger.log(msg));
+
+  @Get(':id')
+  findOne(
+    @Param('id') id: string,
+    @Headers('authorization') authHeader: string,
+  ) {
+    if (id === 'me') {
+      return this.userService.me(authHeader, (msg) => Logger.log(msg));
+    }
+    return this.userService.findOne(+id);
   }
 
   @UseGuards(RolesGuard)
