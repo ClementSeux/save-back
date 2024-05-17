@@ -23,11 +23,19 @@ import { BillsModule } from 'src/bills/bills.module';
       },
     }),
     TypeOrmModule.forFeature([User, JwtModule]),
+
     ProductsModule,
     PaymentsModule,
     BillsModule,
   ],
   controllers: [TokenController],
-  providers: [UserService, JwtService, MyBasicStrategy],
+  providers: [
+    UserService,
+    JwtService,
+    MyBasicStrategy,
+    PaymentService,
+    ProductService,
+    BillService,
+  ],
 })
 export class AuthModule {}
