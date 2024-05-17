@@ -19,6 +19,7 @@ import { UserRepository } from './repository/user.repository';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      User,
       UserRepository,
       Reseller,
       Cart,
