@@ -15,6 +15,9 @@ import { UserCartsModule } from './user_carts/user_carts.module';
 import { CustomNotesModule } from './custom_notes/custom_notes.module';
 import { AuthModule } from './auth/auth.module';
 import { TokenController } from './auth/token/token.controller';
+import { PaymentService } from './payments/payments.service';
+import { ProductService } from './products/products.service';
+import { BillService } from './bills/bills.service';
 
 @Module({
   imports: [
@@ -43,7 +46,7 @@ import { TokenController } from './auth/token/token.controller';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PaymentService, ProductService, BillService],
 })
 export class AppModule {}
 //
