@@ -82,7 +82,7 @@ export class BillService {
     try {
       let done = await this.billRepository.update(
         id,
-        updateBillDto as QueryDeepPartialEntity<Bill>,
+        updateBillDto ,
       );
       if (done.affected != 1) {
         throw new NotFoundException(`Bill #${id} not found`);

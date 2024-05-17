@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNotEmpty } from 'class-validator';
+import { Bill } from 'src/bills/entities/bill.entity';
 
 export class CreatePaymentDto {
   @ApiProperty()
@@ -8,5 +9,5 @@ export class CreatePaymentDto {
 
   @ApiProperty()
   @IsDefined()
-  bill: number;
+  bill: Bill;
 }
