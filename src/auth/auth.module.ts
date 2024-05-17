@@ -26,7 +26,7 @@ import { Bill } from 'src/bills/entities/bill.entity';
         audience: process.env.JWT_AUDIENCE || 'save.com',
       },
     }),
-    TypeOrmModule.forFeature([User, JwtModule]),
+    TypeOrmModule.forFeature([User, JwtModule, Payment, Product, Bill]),
     UserModule,
     ProductsModule,
     PaymentsModule,
