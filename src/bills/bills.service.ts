@@ -3,6 +3,7 @@ import {
   Delete,
   Get,
   Injectable,
+  Logger,
   NotFoundException,
   Patch,
   Post,
@@ -19,9 +20,7 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
-import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class BillService {
@@ -68,7 +67,6 @@ export class BillService {
     return bill;
   }
 
-
   @ApiOperation({ summary: 'Update a bill' })
   @ApiNotFoundResponse({
     description: 'Bill not found.',
@@ -80,10 +78,7 @@ export class BillService {
   @Patch(':id')
   async update(id: number, updateBillDto: UpdateBillDto) {
     try {
-      let done = await this.billRepository.update(
-        id,
-        updateBillDto ,
-      );
+      let done = await this.billRepository.update(id, updateBillDto);
       if (done.affected != 1) {
         throw new NotFoundException(`Bill #${id} not found`);
       }

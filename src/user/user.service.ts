@@ -105,24 +105,53 @@ export class UserService {
     type: User,
   })
   async me(authHeader: string, logger: (msg) => void): Promise<any> {
-    // retrieve user from token
+    // retrieve userData from token
+    //   [{
+    //     "id": 5,
+    //     "payments": [ // payments of the bill, one to many relationship
+    //         {
+    //             "id": 5,
+    //             "total": 9,
+    //             "status": "P",
+    //             "timestamp": "2024-05-17T14:59:27.000Z"
+    //         }
+    //     ],
+    //     "products": [ // products of the bill, many to many relationship
+    //           {
+    //             "id": 1,
+    //             "name": "product1",
+    //             "price": 1
+    //           },
+    // ]
+    // }]
+
     logger('authHeader: ' + authHeader);
     const token = authHeader.split(' ')[1];
     logger('token: ' + token);
     const payload = jwt.decode(token) as { id: number };
     logger('payload: ' + payload);
-    const userData = await this.userRepository.find({
-      where: { id: payload.id },
-      relations: {
-        bills: {
-          payments: true,
-          products: true,
-        },
-      },
-    });
-    if (!userData) {
-      throw new NotFoundException(`User #${payload.id} not found`);
-    }
+
+    const userDataRepository = this.userRepository.createQueryBuilder('user');
+    userDataRepository
+      .leftJoinAndSelect('user.bills', 'bill')
+      .leftJoinAndSelect('bill.payments', 'payment')
+      .leftJoinAndSelect('bill.products', 'product')
+      .where('user.id = :id', { id: payload.id });
+
+    const userData = await userDataRepository.getOne();
+
+    // const userData = await this.userRepository.find({
+    //   where: { id: payload.id },
+    //   relations: {
+    //     bills: {
+    //       payments: true,
+    //       products: true,
+    //     },
+    //   },
+    // });
+    // if (!userData) {
+    //   throw new NotFoundException(`User #${payload.id} not found`);
+    // }
     // userData.bills = await this.billService.findAllByUser(userData);
     // userData.bills.forEach(async (bill) => {
     //   bill.payments = await this.paymentService.findAllByBill(bill);
