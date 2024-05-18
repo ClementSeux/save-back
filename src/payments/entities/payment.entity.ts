@@ -25,7 +25,7 @@ export class Payment {
   timestamp: Date;
 
   @ManyToOne(() => Bill, (bill) => bill.payments, {
-    cascade: ['remove'],
+    cascade: true,
     onDelete: 'CASCADE',
   })
   bill: Bill;

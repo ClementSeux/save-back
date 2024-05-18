@@ -22,6 +22,7 @@ export class Bill {
 
   @OneToMany(() => Payment, (payment) => payment.bill, {
     cascade: true,
+    onDelete: 'CASCADE',
   })
   payments: () => Payment[];
 
