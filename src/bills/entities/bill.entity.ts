@@ -18,14 +18,11 @@ export class Bill {
 
   @ApiProperty()
   @ManyToOne(() => User, (user) => user.bills)
-  user: User;
+  user: () => User;
 
-  @OneToMany(() => Payment, (payment) => payment.bill, {
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
-  payments: Payment[];
+  @OneToMany(() => Payment, (payment) => payment.bill)
+  payments: () => Payment[];
 
   @ManyToMany(() => Product, (product) => product.bills)
-  products: Product[];
+  products: () => Product[];
 }
