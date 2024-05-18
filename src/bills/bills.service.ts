@@ -18,6 +18,8 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
+import { PaymentService } from 'src/payments/payments.service';
+import { Payment } from 'src/payments/entities/payment.entity';
 
 @Injectable()
 export class BillService {
@@ -96,6 +98,23 @@ export class BillService {
   })
   @Delete(':id')
   async remove(id: number): Promise<void> {
+    // delete associated payments first
+    const paymentService = new PaymentService(
+      this.billRepository.manager.getRepository(Payment),
+    );
+    let bill = await this.billRepository.find({
+      where: { id },
+      relations: ['payments'],
+    });
+    if (!bill) {
+      throw new NotFoundException(`Bill #${id} not found`);
+    }
+    await Promise.all(
+      bill[0].payments().map(async (payment) => {
+        await paymentService.remove(payment.id);
+      }),
+    );
+
     let done = await this.billRepository.delete(id);
     if (done.affected != 1) {
       throw new NotFoundException(`Bill #${id} not found`);
