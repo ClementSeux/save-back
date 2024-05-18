@@ -104,7 +104,7 @@ export class BillService {
     );
     let bill = await this.billRepository.find({
       where: { id },
-      relations: ['payments'],
+      relations: ['payments', 'products'],
     });
     if (!bill) {
       throw new NotFoundException(`Bill #${id} not found`);
@@ -114,6 +114,13 @@ export class BillService {
         await paymentService.remove(payment.id);
       }),
     );
+
+    // for each product delete the link on product_bills_bill
+    await this.billRepository
+      .createQueryBuilder()
+      .relation(Bill, 'products')
+      .of(id)
+      .remove(bill[0].products);
 
     let done = await this.billRepository.delete(id);
     if (done.affected != 1) {
