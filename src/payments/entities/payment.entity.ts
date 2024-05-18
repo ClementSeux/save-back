@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 import { Bill } from 'src/bills/entities/bill.entity';
 import { Entity, ManyToOne } from 'typeorm';
 import { PrimaryGeneratedColumn } from 'typeorm';
@@ -25,6 +24,6 @@ export class Payment {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
-  @ManyToOne(() => Bill, (bill) => bill.payments)
+  @ManyToOne(() => Bill, (bill) => bill.payments, { onDelete: 'CASCADE' })
   bill: Bill;
 }

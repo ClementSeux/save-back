@@ -3,16 +3,13 @@ import {
   Delete,
   Get,
   Injectable,
-  Logger,
   NotFoundException,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
-import { CreateBillDto } from './dto/create-bill.dto';
 import { UpdateBillDto } from './dto/update-bill.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Bill } from './entities/bill.entity';
 import {
   ApiCreatedResponse,

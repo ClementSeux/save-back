@@ -1,6 +1,5 @@
 import {
   Entity,
-  JoinColumn,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -24,8 +23,6 @@ export class Bill {
   @OneToMany(() => Payment, (payment) => payment.bill, { onDelete: 'CASCADE' })
   payments: () => Payment[];
 
-  @ManyToMany(() => Product, (product) => product.bills, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(() => Product, (product) => product.bills)
   products: () => Product[];
 }
