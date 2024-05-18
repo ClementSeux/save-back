@@ -28,7 +28,7 @@ export class Product {
   @Column({ type: 'decimal', precision: 5, scale: 2 })
   price: number;
 
-  @ManyToMany(() => Bill, (bill) => bill.products, { onDelete: 'CASCADE' })
+  @ManyToMany(() => Bill, (bill) => bill.products)
   @JoinTable()
   bills: Bill[];
 }

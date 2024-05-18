@@ -20,7 +20,10 @@ export class Bill {
   @ManyToOne(() => User, (user) => user.bills)
   user: () => User;
 
-  @OneToMany(() => Payment, (payment) => payment.bill, { onDelete: 'CASCADE' })
+  @OneToMany(() => Payment, (payment) => payment.bill, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   payments: () => Payment[];
 
   @ManyToMany(() => Product, (product) => product.bills)
