@@ -26,7 +26,6 @@ export class Payment {
 
   @ManyToOne(() => Bill, (bill) => bill.payments, {
     cascade: true,
-    onDelete: 'CASCADE',
   })
   bill: Bill;
 }
