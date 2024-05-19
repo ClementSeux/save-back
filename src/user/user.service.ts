@@ -105,25 +105,6 @@ export class UserService {
     type: User,
   })
   async me(authHeader: string, logger: (msg) => void): Promise<any> {
-    // retrieve userData from token
-    //   [{
-    //     "id": 5,
-    //     "payments": [ // payments of the bill, one to many relationship
-    //         {
-    //             "id": 5,
-    //             "total": 9,
-    //             "status": "P",
-    //             "timestamp": "2024-05-17T14:59:27.000Z"
-    //         }
-    //     ],
-    //     "products": [ // products of the bill, many to many relationship
-    //           {
-    //             "id": 1,
-    //             "name": "product1",
-    //             "price": 1
-    //           },
-    // ]
-    // }]
 
     logger('authHeader: ' + authHeader);
     const token = authHeader.split(' ')[1];

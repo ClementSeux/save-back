@@ -61,6 +61,15 @@ export class CartService {
   @Get(':id')
   async findOne(id: number): Promise<Cart> {
     const cart = await this.cartRepository.findOneBy({ id });
+
+    const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
+    cartDataRepository
+      .leftJoinAndSelect('cart.step', 'step')
+      .leftJoinAndSelect('step.item', 'item')
+      .where('cart.id = :id', { id: id });
+
+    const userData = await cartDataRepository.getOne();
+
     if (!cart) {
       throw new NotFoundException(`Cart #${id} not found`);
     }
