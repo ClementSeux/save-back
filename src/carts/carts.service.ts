@@ -68,12 +68,12 @@ export class CartService {
       .leftJoinAndSelect('step.item', 'item')
       .where('cart.id = :id', { id: id });
 
-    const userData = await cartDataRepository.getOne();
+    const cartData = await cartDataRepository.getOne();
 
     if (!cart) {
       throw new NotFoundException(`Cart #${id} not found`);
     }
-    return cart;
+    return cartData;
   }
 
   @ApiOperation({ summary: 'Update a cart' })
