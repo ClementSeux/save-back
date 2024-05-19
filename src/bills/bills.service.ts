@@ -20,6 +20,7 @@ import {
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { PaymentService } from 'src/payments/payments.service';
 import { Payment } from 'src/payments/entities/payment.entity';
+import { Product } from 'src/products/entities/product.entity';
 
 @Injectable()
 export class BillService {
@@ -115,12 +116,14 @@ export class BillService {
       }),
     );
 
-    // for each product delete the link on product_bills_bill
+    // send this query to the database
+    // "DELETE FROM product_bills_bill WHERE bill_id = id"
     await this.billRepository
       .createQueryBuilder()
       .relation(Bill, 'products')
       .of(id)
       .remove(bill[0].products);
+
 
     let done = await this.billRepository.delete(id);
     if (done.affected != 1) {

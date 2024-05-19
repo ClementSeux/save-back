@@ -28,8 +28,6 @@ export class ResellersController {
     return this.resellersService.create(createResellerDto);
   }
 
-  @UseGuards(RolesGuard)
-  @Roles(Role.ADMIN)
   @Get()
   findAll() {
     return this.resellersService.findAll();
