@@ -7,6 +7,8 @@ import {
   Min,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Cart } from 'src/carts/entities/cart.entity';
+import { Item } from 'src/items/entities/item.entity';
 
 // @Entity()
 // export class Step {
@@ -57,7 +59,7 @@ export class CreateStepDto {
 
   @ApiProperty()
   @IsDefined()
-  readonly cartId: number;
+  readonly cart: Cart;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -72,7 +74,7 @@ export class CreateStepDto {
 
   @ApiProperty()
   @IsDefined()
-  readonly itemId: number;
+  readonly item: Item;
 
   @ApiProperty()
   @IsNotEmpty()
