@@ -31,4 +31,12 @@ export class Step {
   @ApiProperty()
   @ManyToOne(() => Item, (item) => item.steps)
   item: Item;
+
+  @ApiProperty()
+  @Column({ type: 'float' })
+  price: number;
+
+  @ApiProperty()
+  @Column({ type: 'float' })
+  oldPrice: number;
 }
