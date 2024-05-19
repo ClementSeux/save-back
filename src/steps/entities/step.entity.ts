@@ -19,7 +19,7 @@ export class Step {
   // Cart
   @ApiProperty()
   @ManyToOne(() => Cart, (cart) => cart.steps)
-  cart: Cart;
+  cartId: Cart;
 
   @ApiProperty()
   @Column({ type: 'varchar', length: 120 })
