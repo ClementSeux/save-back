@@ -6,10 +6,13 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, isDate, IsNotEmpty } from 'class-validator';
+import { Item } from 'src/items/entities/item.entity';
 
 @Entity()
 export class Cart {

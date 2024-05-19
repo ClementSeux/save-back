@@ -5,7 +5,19 @@ import { User } from 'src/user/entities/user.entity';
 export class CreateCartDto {
   @ApiProperty()
   @IsNotEmpty()
-  readonly expertId: number;
+  readonly cName: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly description: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly details: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  readonly expertId: User;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -18,8 +30,4 @@ export class CreateCartDto {
   @ApiProperty()
   @IsNotEmpty()
   readonly availableTo: Date;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  readonly user: () => User;
 }
