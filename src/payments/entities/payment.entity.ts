@@ -24,8 +24,6 @@ export class Payment {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
-  @ManyToOne(() => Bill, (bill) => bill.payments, {
-    cascade: true,
-  })
+  @ManyToOne(() => Bill, (bill) => bill.payments)
   bill: Bill;
 }
