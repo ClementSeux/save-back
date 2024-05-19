@@ -13,6 +13,7 @@ import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, isDate, IsNotEmpty } from 'class-validator';
 import { Item } from 'src/items/entities/item.entity';
+import { Step } from 'src/steps/entities/step.entity';
 
 @Entity()
 export class Cart {
@@ -39,6 +40,10 @@ export class Cart {
   @IsDate()
   @Column()
   availableTo: Date;
+
+  @ApiProperty()
+  @OneToMany(() => Step, (step) => step.cart)
+  steps: () => Step[];
 
   @OneToMany(() => UserCart, (user_cart) => user_cart.cart)
   userCarts: () => UserCart[];

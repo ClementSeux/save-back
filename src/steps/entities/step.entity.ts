@@ -8,12 +8,18 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Cart } from 'src/carts/entities/cart.entity';
 
 @Entity()
 export class Step {
   @ApiProperty()
   @PrimaryGeneratedColumn()
   id: number;
+
+  // Cart
+  @ApiProperty()
+  @ManyToOne(() => Cart, (cart) => cart.steps)
+  cart: Cart;
 
   @ApiProperty()
   @Column({ type: 'varchar', length: 120 })
@@ -22,6 +28,10 @@ export class Step {
   @ApiProperty()
   @Column({ type: 'text' })
   content: string;
+
+  @ApiProperty()
+  @Column({ type: 'varchar', length: 255 })
+  link: string;
 
   @ApiProperty()
   @Index()
