@@ -30,7 +30,7 @@ export class Step {
   content: string;
 
   @ApiProperty()
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, default: '' })
   link: string;
 
   @ApiProperty()
