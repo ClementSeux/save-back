@@ -64,7 +64,7 @@ export class CartService {
 
     const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
     cartDataRepository
-      .leftJoinAndSelect('cart.step', 'step')
+      .leftJoinAndSelect('cart.steps', 'step')
       .leftJoinAndSelect('step.item', 'item')
       .where('cart.id = :id', { id: id });
 
