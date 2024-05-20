@@ -49,9 +49,6 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private readonly billService: BillService,
-    private readonly paymentService: PaymentService,
-    private readonly productService: ProductService,
   ) {}
 
   @ApiOperation({ summary: 'Create a user' })
@@ -121,23 +118,6 @@ export class UserService {
 
     const userData = await userDataRepository.getOne();
 
-    // const userData = await this.userRepository.find({
-    //   where: { id: payload.id },
-    //   relations: {
-    //     bills: {
-    //       payments: true,
-    //       products: true,
-    //     },
-    //   },
-    // });
-    // if (!userData) {
-    //   throw new NotFoundException(`User #${payload.id} not found`);
-    // }
-    // userData.bills = await this.billService.findAllByUser(userData);
-    // userData.bills.forEach(async (bill) => {
-    //   bill.payments = await this.paymentService.findAllByBill(bill);
-    //   bill.products = await this.productService.findAllByBill(bill);
-    // });
 
     return userData;
   }

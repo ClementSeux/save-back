@@ -17,7 +17,6 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { Query } from 'mysql2/typings/mysql/lib/protocol/sequences/Query';
 import { QueryPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
