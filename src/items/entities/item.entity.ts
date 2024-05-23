@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  ManyToMany,
 } from 'typeorm';
 import { Step } from '../../steps/entities/step.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 
 @Entity()
 export class Item {
@@ -20,4 +22,7 @@ export class Item {
 
   @OneToMany(() => Step, (step) => step.item)
   steps: Step[];
+
+  @ManyToMany(() => UserCart, (userCart) => userCart.excludedItems)
+  userCarts: UserCart[];
 }
