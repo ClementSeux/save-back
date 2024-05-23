@@ -102,7 +102,6 @@ export class UserService {
     type: User,
   })
   async me(authHeader: string, logger: (msg) => void): Promise<any> {
-
     logger('authHeader: ' + authHeader);
     const token = authHeader.split(' ')[1];
     logger('token: ' + token);
@@ -114,10 +113,12 @@ export class UserService {
       .leftJoinAndSelect('user.bills', 'bill')
       .leftJoinAndSelect('bill.payments', 'payment')
       .leftJoinAndSelect('bill.products', 'product')
+      .leftJoinAndSelect('user.userCarts', 'userCart')
+      .leftJoinAndSelect('userCart.cart', 'cart')
+      .leftJoinAndSelect('cart.items', 'item')
       .where('user.id = :id', { id: payload.id });
 
     const userData = await userDataRepository.getOne();
-
 
     return userData;
   }
