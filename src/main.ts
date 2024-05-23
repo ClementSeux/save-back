@@ -4,20 +4,27 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { config } from 'dotenv';
 import * as fs from 'fs';
+import { INestApplication } from '@nestjs/common';
 
 config();
 
 async function bootstrap() {
-  const httpsOptions = {
-    key: fs.readFileSync(
-      '/etc/letsencrypt/live/save.back.clementseux.me/privkey.pem',
-    ),
-    cert: fs.readFileSync(
-      '/etc/letsencrypt/live/save.back.clementseux.me/fullchain.pem',
-    ),
-  };
+  let app: INestApplication;
 
-  const app = await NestFactory.create(AppModule, { httpsOptions });
+  if (process.env.ENV === 'prod') {
+    const httpsOptions = {
+      key: fs.readFileSync(
+        '/etc/letsencrypt/live/save.back.clementseux.me/privkey.pem',
+      ),
+      cert: fs.readFileSync(
+        '/etc/letsencrypt/live/save.back.clementseux.me/fullchain.pem',
+      ),
+    };
+
+    app = await NestFactory.create(AppModule, { httpsOptions });
+  } else {
+    app = await NestFactory.create(AppModule);
+  }
 
   app.enableCors();
 
