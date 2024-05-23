@@ -13,22 +13,42 @@ export class UserCartsService {
   ) {}
 
   create(createUserCartDto: CreateUserCartDto) {
-    return 'This action adds a new userCart';
+    try {
+      return this.userCartRepository.save(createUserCartDto);
+    } catch (error) {
+      return error;
+    }
   }
 
   findAll() {
-    return `This action returns all userCarts`;
+    try {
+      return this.userCartRepository.find();
+    } catch (error) {
+      return error;
+    }
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} userCart`;
+    try {
+      return this.userCartRepository.findOne({ where: { id } });
+    } catch (error) {
+      return error;
+    }
   }
 
   update(id: number, updateUserCartDto: UpdateUserCartDto) {
-    return `This action updates a #${id} userCart`;
+    try {
+      return this.userCartRepository.update(id, updateUserCartDto);
+    } catch (error) {
+      return error;
+    }
   }
 
   remove(id: number) {
-    return `This action removes a #${id} userCart`;
+    try {
+      return this.userCartRepository.delete(id);
+    } catch (error) {
+      return error;
+    }
   }
 }
