@@ -16,18 +16,30 @@ export class UserCartsController {
   constructor(private readonly userCartsService: UserCartsService) {}
 
   @Post()
-  create(@Body() createUserCartDto: CreateUserCartDto) {
-    return this.userCartsService.create(createUserCartDto);
+  async create(@Body() createUserCartDto: CreateUserCartDto) {
+    try {
+      return this.userCartsService.create(createUserCartDto);
+    } catch (error) {
+      return error;
+    }
   }
 
   @Get()
-  findAll() {
-    return this.userCartsService.findAll();
+  async findAll() {
+    try {
+      return this.userCartsService.findAll();
+    } catch (error) {
+      return error;
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userCartsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return this.userCartsService.findOne(+id);
+    } catch (error) {
+      return error;
+    }
   }
 
   @Patch(':id')
