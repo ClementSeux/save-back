@@ -19,9 +19,7 @@ export class ItemsController {
 
   @Post()
   create(@Body() createItemDto: CreateItemDto) {
-    return {
-      message: 'Item created successfully',
-    };
+    return this.itemsService.create(createItemDto);
   }
 
   @Get()

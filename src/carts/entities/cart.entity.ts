@@ -23,6 +23,21 @@ export class Cart {
 
   @ApiProperty()
   @IsNotEmpty()
+  @Column({ type: 'varchar', length: 120 })
+  cName: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @Column({ type: 'text' })
+  description: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @Column({ type: 'text' })
+  details: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   @ManyToOne(() => User, (user) => user.createdCarts)
   expert: () => User;
 
