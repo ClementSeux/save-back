@@ -3,17 +3,21 @@ import {
   ApiProperty,
   ApiPropertyOptional,
 } from '@nestjs/swagger';
+import { Cart } from 'src/carts/entities/cart.entity';
+import { CustomNote } from 'src/custom_notes/entities/custom_note.entity';
+import { Item } from 'src/items/entities/item.entity';
+import { User } from 'src/user/entities/user.entity';
 
 export class CreateUserCartDto {
   @ApiProperty()
-  userId: number;
+  readonly userId: User;
 
   @ApiProperty()
-  cartId: number;
+  readonly cartId: Cart;
 
   @ApiPropertyOptional()
-  customNotes: number[];
+  readonly customNotes: CustomNote[];
 
   @ApiPropertyOptional()
-  excludedItems: number[];
+  readonly excludedItems: Item[];
 }
