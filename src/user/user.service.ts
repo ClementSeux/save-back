@@ -115,7 +115,8 @@ export class UserService {
       .leftJoinAndSelect('bill.products', 'product')
       .leftJoinAndSelect('user.userCarts', 'userCart')
       .leftJoinAndSelect('userCart.cart', 'cart')
-      .leftJoinAndSelect('cart.items', 'item')
+      .leftJoinAndSelect('cart.steps', 'step')
+      .leftJoinAndSelect('step.item', 'item')
       .where('user.id = :id', { id: payload.id });
 
     const userData = await userDataRepository.getOne();
