@@ -18,10 +18,9 @@ export class Step {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // Cart
   @ApiProperty()
   @ManyToOne(() => Cart, (cart) => cart.steps)
-  cart: Cart;
+  cart: () => Cart;
 
   @ApiProperty()
   @Column({ type: 'varchar', length: 120 })
