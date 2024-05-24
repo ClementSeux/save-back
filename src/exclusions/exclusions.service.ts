@@ -55,13 +55,19 @@ export class ExclusionsService {
     type: Exclusion,
     isArray: true,
   })
-  findByUserId(userId: number) {
+  async findByUserId(user: number) {
     try {
-      return this.exclusionRepository.find({
-        where: {
-          userId,
-        },
-      });
+      const userExclusionList = this.exclusionRepository
+        .createQueryBuilder('exclusion')
+        .where('exclusion.user = :user', { user: user })
+        .getMany();
+
+      const userData = await userExclusionList;
+
+      if (!userData) {
+        throw new NotFoundException(`User #${user} not found`);
+      }
+      return userData;
     } catch (e) {
       console.log(e);
     }
@@ -74,12 +80,16 @@ export class ExclusionsService {
   @ApiNotFoundResponse({
     description: 'The exclusion was not found.',
   })
-  remove(userId: number, stepId: number) {
+  remove(user: number, step: number) {
     try {
-      return this.exclusionRepository.delete({
-        userId,
-        stepId,
-      });
+      const userExclusionList =
+        this.exclusionRepository.createQueryBuilder('exclusion');
+      userExclusionList
+        .delete()
+        .from(Exclusion)
+        .where('user = :user', { user: user })
+        .andWhere('step = :step', { step: step })
+        .execute();
     } catch (e) {
       console.log(e);
     }
