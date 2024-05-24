@@ -12,9 +12,9 @@ import {
 import { Role } from '../enums/role.enums';
 import { Cart } from '../../carts/entities/cart.entity';
 import { Bill } from 'src/bills/entities/bill.entity';
-import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { Exclusion } from '../../exclusions/entities/exclusion.entity';
 
 @Entity()
 export class User {
@@ -45,10 +45,10 @@ export class User {
   createdCarts: Cart[];
 
   @ApiProperty()
-  @OneToMany(() => UserCart, (u_cart) => u_cart.user)
-  userCarts: UserCart[];
-
-  @ApiProperty()
   @OneToMany(() => Bill, (bill) => bill.user)
   bills: Bill[];
+
+  @ApiProperty()
+  @OneToMany(() => Exclusion, (exclusion) => exclusion.user)
+  exclusions: Exclusion[];
 }

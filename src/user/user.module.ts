@@ -12,7 +12,6 @@ import { CustomNote } from 'src/custom_notes/entities/custom_note.entity';
 import { Item } from 'src/items/entities/item.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { Step } from 'src/steps/entities/step.entity';
-import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { JwtService } from '@nestjs/jwt';
 import { PaymentService } from 'src/payments/payments.service';
 import { ProductService } from 'src/products/products.service';
@@ -30,7 +29,6 @@ import { BillService } from 'src/bills/bills.service';
       Item,
       Product,
       Step,
-      UserCart,
     ]),
   ],
 

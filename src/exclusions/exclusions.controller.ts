@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ExclusionsService } from './exclusions.service';
 import { CreateExclusionDto } from './dto/create-exclusion.dto';
-import { UpdateExclusionDto } from './dto/update-exclusion.dto';
+import { use } from 'passport';
 
 @Controller('exclusions')
 export class ExclusionsController {
@@ -17,18 +25,13 @@ export class ExclusionsController {
     return this.exclusionsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.exclusionsService.findOne(+id);
+  @Get(':userId')
+  findByUserId(@Param('userId') userId: string) {
+    return this.exclusionsService.findByUserId(+userId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExclusionDto: UpdateExclusionDto) {
-    return this.exclusionsService.update(+id, updateExclusionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exclusionsService.remove(+id);
+  @Delete(':userId/:stepId')
+  remove(@Param('userId') userId: string, @Param('stepId') stepId: string) {
+    return this.exclusionsService.remove(+userId, +stepId);
   }
 }

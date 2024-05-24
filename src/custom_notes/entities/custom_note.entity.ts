@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, Max } from 'class-validator';
-import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import {
   Column,
   Entity,
@@ -26,7 +25,4 @@ export class CustomNote {
   @IsNotEmpty()
   @Column({ type: 'text' })
   content: string;
-
-  @ManyToOne(() => UserCart, (user_cart) => user_cart.customNotes)
-  userCart: UserCart;
 }

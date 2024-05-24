@@ -5,10 +5,12 @@ import {
   Entity,
   Index,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Cart } from 'src/carts/entities/cart.entity';
+import { Exclusion } from 'src/exclusions/entities/exclusion.entity';
 
 @Entity()
 export class Step {
@@ -49,4 +51,8 @@ export class Step {
   @ApiProperty()
   @Column({ type: 'float' })
   oldPrice: number;
+
+  @ApiProperty()
+  @OneToMany(() => Exclusion, (exclusion) => exclusion.step)
+  exclusions: Exclusion[];
 }

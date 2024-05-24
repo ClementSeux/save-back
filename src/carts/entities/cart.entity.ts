@@ -9,7 +9,6 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { UserCart } from 'src/user_carts/entities/user_cart.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, isDate, IsNotEmpty } from 'class-validator';
 import { Item } from 'src/items/entities/item.entity';
@@ -59,7 +58,4 @@ export class Cart {
   @ApiProperty()
   @OneToMany(() => Step, (step) => step.cart)
   steps: () => Step[];
-
-  @OneToMany(() => UserCart, (user_cart) => user_cart.cart)
-  userCarts: () => UserCart[];
 }

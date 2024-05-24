@@ -113,9 +113,8 @@ export class UserService {
       .leftJoinAndSelect('user.bills', 'bill')
       .leftJoinAndSelect('bill.payments', 'payment')
       .leftJoinAndSelect('bill.products', 'product')
-      .leftJoinAndSelect('user.userCarts', 'userCart')
-      .leftJoinAndSelect('userCart.cart', 'cart')
-      .leftJoinAndSelect('cart.steps', 'step')
+      .leftJoinAndSelect('user.exclusions', 'exclusion')
+      .leftJoinAndSelect('exclusion.step', 'step')
       .leftJoinAndSelect('step.item', 'item')
       .where('user.id = :id', { id: payload.id });
 

@@ -11,7 +11,6 @@ import { ItemsModule } from './items/items.module';
 import { BillsModule } from './bills/bills.module';
 import { ProductsModule } from './products/products.module';
 import { PaymentsModule } from './payments/payments.module';
-import { UserCartsModule } from './user_carts/user_carts.module';
 import { CustomNotesModule } from './custom_notes/custom_notes.module';
 import { AuthModule } from './auth/auth.module';
 import { ExclusionsModule } from './exclusions/exclusions.module';
@@ -38,7 +37,6 @@ import { ExclusionsModule } from './exclusions/exclusions.module';
     BillsModule,
     ProductsModule,
     PaymentsModule,
-    UserCartsModule,
     CustomNotesModule,
     AuthModule,
     ExclusionsModule,
