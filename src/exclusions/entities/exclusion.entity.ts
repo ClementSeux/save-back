@@ -7,11 +7,11 @@ import { ApiProperty } from '@nestjs/swagger';
 export class Exclusion {
   @ApiProperty()
   @PrimaryColumn()
-  userId: () => User;
+  userId: User;
 
   @ApiProperty()
   @PrimaryColumn()
-  stepId: () => Step;
+  stepId: Step;
 
   @ManyToOne(() => User, (user) => user.exclusions)
   user: User;
