@@ -6,9 +6,9 @@ import { Step } from 'src/steps/entities/step.entity';
 export class CreateExclusionDto {
   @ApiProperty()
   @IsDefined()
-  readonly userId: User;
+  readonly user: User;
 
   @ApiProperty()
   @IsDefined()
-  readonly stepId: Step;
+  readonly step: Step;
 }
