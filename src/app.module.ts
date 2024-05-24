@@ -14,6 +14,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { UserCartsModule } from './user_carts/user_carts.module';
 import { CustomNotesModule } from './custom_notes/custom_notes.module';
 import { AuthModule } from './auth/auth.module';
+import { ExclusionsModule } from './exclusions/exclusions.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { AuthModule } from './auth/auth.module';
     UserCartsModule,
     CustomNotesModule,
     AuthModule,
+    ExclusionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
