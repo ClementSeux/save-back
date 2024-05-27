@@ -31,11 +31,11 @@ export class Cart {
   description: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @Column({ type: 'text' })
   details: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @ManyToOne(() => User, (user) => user.createdCarts)
   expert: () => User;
 
