@@ -46,7 +46,7 @@ export class CartService {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const expertId = decoded['id'];
       this.userRepository.findOneOrFail(expertId);
-      
+      return expertId;
       return await this.cartRepository.save({
         ...createCartDto,
         expertId: expertId,
