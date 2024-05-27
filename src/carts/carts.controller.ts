@@ -41,6 +41,11 @@ export class CartsController {
     return this.cartsService.findOne(+id);
   }
 
+  @Get('name/:id')
+  findExpertName(@Param('id') id: string) {
+    return this.cartsService.findExpertName(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
     return this.cartsService.update(+id, updateCartDto);
