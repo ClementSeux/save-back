@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   Head,
+  Logger,
 } from '@nestjs/common';
 import { CartService } from './carts.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { Headers } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
 
 @Controller('carts')
 export class CartsController {
@@ -22,6 +24,10 @@ export class CartsController {
     @Body() createCartDto: CreateCartDto,
     @Headers('authorization') authHeader: string,
   ) {
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const expertId = decoded['id'];
+    Logger.log('post cart received by expertId: ' + expertId);
     return this.cartsService.create(authHeader, createCartDto);
   }
 
