@@ -36,7 +36,6 @@ export class Cart {
   details: string;
 
   @ApiProperty()
-  @Column()
   @ManyToOne(() => User, (user) => user.createdCarts)
   expert: () => User;
 

@@ -72,7 +72,7 @@ export class CartService {
     type: Cart,
   })
   @Get(':id')
-  async findOne(id: number): Promise<Cart> {
+  async findOne(id: number): Promise<any> {
     const cart = await this.cartRepository.findOneBy({ id });
 
     const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
@@ -82,11 +82,24 @@ export class CartService {
       .where('cart.id = :id', { id: id });
 
     const cartData = await cartDataRepository.getOne();
+    const expertName = await this.findExpertName(id);
 
+    const returnData = { ...cart, ...cartData, expertName: expertName };
     if (!cart) {
       throw new NotFoundException(`Cart #${id} not found`);
     }
-    return cartData;
+    return returnData;
+  }
+
+  async findExpertName(id: number): Promise<string> {
+    const cart = await this.cartRepository.findOneBy({ id });
+    if (!cart) {
+      throw new NotFoundException(`Cart #${id} not found`);
+    }
+    const expert = await this.userRepository.findOneBy({
+      id: Number(cart.expert),
+    });
+    return expert.uName;
   }
 
   @ApiOperation({ summary: 'Update a cart' })
