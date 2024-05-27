@@ -31,7 +31,6 @@ export class Cart {
   description: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @Column({ type: 'text' })
   details: string;
 
