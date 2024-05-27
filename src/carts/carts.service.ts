@@ -91,6 +91,7 @@ export class CartService {
     return returnData;
   }
 
+  @Get('name/:id')
   async findExpertName(id: number): Promise<string> {
     const cart = await this.cartRepository.findOneBy({ id });
     if (!cart) {
