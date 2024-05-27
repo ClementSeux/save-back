@@ -18,12 +18,17 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+import { User } from 'src/user/entities/user.entity';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class CartService {
   constructor(
     @InjectRepository(Cart)
     private readonly cartRepository: Repository<Cart>,
+
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   @ApiOperation({ summary: 'Create a cart' })
@@ -32,10 +37,19 @@ export class CartService {
     type: Cart,
   })
   @Post()
-  async create(createCartDto: CreateCartDto): Promise<Cart> {
+  async create(
+    authHeader: string,
+    createCartDto: CreateCartDto,
+  ): Promise<Cart> {
     try {
+      const token = authHeader.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const expertId = decoded['id'];
+      this.userRepository.findOneOrFail(expertId);
+
       return await this.cartRepository.save({
         ...createCartDto,
+        expertId: expertId,
       });
     } catch (error) {
       throw new ConflictException(error.message);

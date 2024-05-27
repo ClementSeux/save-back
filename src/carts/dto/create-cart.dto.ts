@@ -17,10 +17,6 @@ export class CreateCartDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly expertId: User;
-
-  @ApiProperty()
-  @IsNotEmpty()
   readonly resellerId: number;
 
   @ApiProperty()

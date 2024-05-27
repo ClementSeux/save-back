@@ -3,7 +3,6 @@ import {
   Delete,
   Get,
   Injectable,
-  Logger,
   NotFoundException,
   Patch,
   Post,
@@ -11,14 +10,10 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import { Bill } from 'src/bills/entities/bill.entity';
-import { BillService } from 'src/bills/bills.service';
 import { Payment } from 'src/payments/entities/payment.entity';
-import { PaymentService } from 'src/payments/payments.service';
 import { Product } from 'src/products/entities/product.entity';
-import { ProductService } from 'src/products/products.service';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -26,8 +21,6 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import * as bcrypt from 'bcryptjs';
-import { Request } from 'express';
-import { Headers } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { Role } from './enums/role.enums';
 
@@ -36,6 +29,7 @@ type BillsData = {
   payments: Payment[];
   products: Product[];
 };
+
 type UserData = {
   id: number;
   uName: string;

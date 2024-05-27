@@ -6,18 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  Head,
 } from '@nestjs/common';
 import { CartService } from './carts.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { Headers } from '@nestjs/common';
 
 @Controller('carts')
 export class CartsController {
   constructor(private readonly cartsService: CartService) {}
 
   @Post()
-  create(@Body() createCartDto: CreateCartDto) {
-    return this.cartsService.create(createCartDto);
+  create(
+    @Body() createCartDto: CreateCartDto,
+    @Headers('authorization') authHeader: string,
+  ) {
+    return this.cartsService.create(authHeader, createCartDto);
   }
 
   @Get()
