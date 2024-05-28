@@ -16,7 +16,6 @@ export class CreateCartDto {
   readonly details: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   readonly expert: User;
 
   @ApiProperty()

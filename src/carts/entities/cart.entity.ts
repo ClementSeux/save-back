@@ -10,8 +10,7 @@ import {
   JoinTable,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, isDate, IsNotEmpty } from 'class-validator';
-import { Item } from 'src/items/entities/item.entity';
+import { IsDate, IsNotEmpty } from 'class-validator';
 import { Step } from 'src/steps/entities/step.entity';
 
 @Entity()
