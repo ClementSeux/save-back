@@ -100,7 +100,7 @@ export class CartService {
       throw new NotFoundException(`Cart #${id} not found`);
     }
     const expert = await this.userRepository.findOneBy({
-      id: cart.expert().id,
+      id: cart.expert.id,
     });
     return expert.uName;
   }
