@@ -20,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from 'src/user/entities/user.entity';
 import * as jwt from 'jsonwebtoken';
+import e from 'express';
 
 @Injectable()
 export class CartService {
@@ -86,6 +87,7 @@ export class CartService {
 
     const cartData = await cartDataRepository.getOne();
     const expertName = await this.findExpertName(id);
+    return expertName;
 
     const returnData = { ...cart, ...cartData, expertName: expertName };
     if (!cart) {
