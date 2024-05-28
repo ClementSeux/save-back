@@ -77,6 +77,7 @@ export class CartService {
   @Get(':id')
   async findOne(id: number): Promise<any> {
     const cart = await this.cartRepository.findOneBy({ id });
+    return cart;
 
     const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
     cartDataRepository
