@@ -95,14 +95,12 @@ export class CartService {
   }
 
   async findExpertName(id: number): Promise<string> {
-    const cart = await this.cartRepository.findOneBy({ id });
-    if (!cart) {
-      throw new NotFoundException(`Cart #${id} not found`);
-    }
-    const expert = await this.userRepository.findOneBy({
-      id: cart.expert.id,
-    });
-    return expert.uName;
+    const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
+    cartDataRepository
+      .leftJoinAndSelect('cart.expert', 'expert')
+      .where('cart.id = :id', { id: id });
+    const expert = await cartDataRepository.getOne();
+    return expert.expert.name;
   }
 
   @ApiOperation({ summary: 'Update a cart' })
