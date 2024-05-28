@@ -102,8 +102,12 @@ export class CartService {
       .leftJoinAndSelect('cart.expert', 'expert')
       .where('cart.id = :id', { id: id });
     const cart = await cartDataRepository.getOne();
-
-    return cart.expert().uName;
+    // Check if cart and expert are defined before accessing uName
+    if (cart && cart.expert) {
+      return cart.expert.uName;
+    } else {
+      return ''; // Return a default value or handle the case when expert is not found
+    }
   }
 
   @ApiOperation({ summary: 'Update a cart' })
