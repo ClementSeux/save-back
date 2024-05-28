@@ -52,7 +52,7 @@ export class CartService {
       return await this.cartRepository.save({
         ...createCartDto,
         expert: expert.id,
-        expertId: expert.id,
+        reseller: createCartDto.resellerId,
       });
     } catch (error) {
       throw new ConflictException(error.message);
