@@ -87,7 +87,6 @@ export class CartService {
 
     const cartData = await cartDataRepository.getOne();
     const expertName = await this.findExpertName(id);
-    return expertName;
 
     const returnData = { ...cart, ...cartData, expertName: expertName };
     if (!cart) {
