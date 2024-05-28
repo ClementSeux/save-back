@@ -20,7 +20,7 @@ export class CreateCartDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly resellerId: number;
+  readonly reseller: number;
 
   @ApiProperty()
   @IsNotEmpty()
