@@ -45,10 +45,10 @@ export class CartService {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const expertId = decoded['id'];
-      this.userRepository.findOneOrFail(expertId);
+      const expert = await this.userRepository.findOneOrFail(expertId);
       return await this.cartRepository.save({
         ...createCartDto,
-        expertId: expertId,
+        expert: expert,
       });
     } catch (error) {
       throw new ConflictException(error.message);
@@ -91,7 +91,6 @@ export class CartService {
     return returnData;
   }
 
-  @Get('name/:id')
   async findExpertName(id: number): Promise<string> {
     const cart = await this.cartRepository.findOneBy({ id });
     if (!cart) {
