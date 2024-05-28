@@ -84,8 +84,6 @@ export class CartService {
       .leftJoinAndSelect('step.item', 'item')
       .where('cart.id = :id', { id: id });
 
-    return cart;
-
     const cartData = await cartDataRepository.getOne();
     const expertName = await this.findExpertName(id);
 
@@ -102,7 +100,7 @@ export class CartService {
       throw new NotFoundException(`Cart #${id} not found`);
     }
     const expert = await this.userRepository.findOneBy({
-      id: Number(cart.expert),
+      id: cart.expert().id,
     });
     return expert.uName;
   }
