@@ -48,11 +48,9 @@ export class CartService {
         throw new NotFoundException(`Expert #${expertId} not found`);
       }
 
-      return expert;
-
       return await this.cartRepository.save({
         ...createCartDto,
-        expertId: expert.id,
+        expertId: expert,
       });
     } catch (error) {
       throw new ConflictException(error.message);
