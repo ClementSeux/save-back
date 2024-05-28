@@ -40,6 +40,7 @@ export class CartsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    Logger.log('get cart by id: ' + id);
     return this.cartsService.findOne(+id);
   }
 
