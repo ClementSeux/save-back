@@ -77,13 +77,14 @@ export class CartService {
   @Get(':id')
   async findOne(id: number): Promise<any> {
     const cart = await this.cartRepository.findOneBy({ id });
-    return cart;
 
     const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
     cartDataRepository
       .leftJoinAndSelect('cart.steps', 'step')
       .leftJoinAndSelect('step.item', 'item')
       .where('cart.id = :id', { id: id });
+
+    return cart;
 
     const cartData = await cartDataRepository.getOne();
     const expertName = await this.findExpertName(id);
