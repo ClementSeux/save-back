@@ -51,7 +51,7 @@ export class CartService {
       }
       return await this.cartRepository.save({
         ...createCartDto,
-        expertId: expert,
+        expertId: expert.id,
       });
     } catch (error) {
       throw new ConflictException(error.message);
