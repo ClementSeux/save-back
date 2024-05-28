@@ -88,10 +88,20 @@ export class CartService {
         'cart.details',
         'cart.availableFrom',
         'cart.availableTo',
+
+        'expert.id',
         'expert.uName',
+
         'step.id',
+        'step.title',
+        'step.content',
+        'step.link',
+        'step.type',
+        'step.price',
+        'step.oldPrice',
+
+        'item.id',
         'item.iName',
-        'item.price',
       ])
       .leftJoinAndSelect('cart.steps', 'step')
       .leftJoinAndSelect('step.item', 'item')
