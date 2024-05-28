@@ -81,6 +81,18 @@ export class CartService {
 
     const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
     cartDataRepository
+      .select([
+        'cart.id',
+        'cart.cName',
+        'cart.description',
+        'cart.details',
+        'cart.availableFrom',
+        'cart.availableTo',
+        'expert.uName',
+        'step.id',
+        'item.iName',
+        'item.price',
+      ])
       .leftJoinAndSelect('cart.steps', 'step')
       .leftJoinAndSelect('step.item', 'item')
       .leftJoinAndSelect('cart.expert', 'expert')
