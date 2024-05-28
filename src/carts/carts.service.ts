@@ -38,10 +38,7 @@ export class CartService {
     type: Cart,
   })
   @Post()
-  async create(
-    authHeader: string,
-    createCartDto: CreateCartDto,
-  ): Promise<Cart> {
+  async create(authHeader: string, createCartDto: CreateCartDto): Promise<any> {
     try {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -50,6 +47,9 @@ export class CartService {
       if (!expert) {
         throw new NotFoundException(`Expert #${expertId} not found`);
       }
+
+      return expert;
+
       return await this.cartRepository.save({
         ...createCartDto,
         expertId: expert.id,
@@ -116,20 +116,6 @@ export class CartService {
     }
     return returnData;
   }
-
-  // async findExpertName(id: number): Promise<string> {
-  //   const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
-  //   cartDataRepository
-  //     .leftJoinAndSelect('cart.expert', 'expert')
-  //     .where('cart.id = :id', { id: id });
-  //   const cart = await cartDataRepository.getOne();
-  //   // Check if cart and expert are defined before accessing uName
-  //   if (cart && cart.expert) {
-  //     return cart.expert.uName;
-  //   } else {
-  //     return ''; // Return a default value or handle the case when expert is not found
-  //   }
-  // }
 
   @ApiOperation({ summary: 'Update a cart' })
   @ApiNotFoundResponse({
