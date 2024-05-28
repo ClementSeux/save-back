@@ -19,6 +19,8 @@ import * as jwt from 'jsonwebtoken';
 export class CartsController {
   constructor(private readonly cartsService: CartService) {}
 
+  static logger = new Logger('CartController');
+
   @Post()
   create(
     @Body() createCartDto: CreateCartDto,
