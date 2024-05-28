@@ -87,6 +87,7 @@ export class CartService {
 
     const cartData = await cartDataRepository.getOne();
     const expertName = await this.findExpertName(id);
+    return { expertName: expertName };
 
     const returnData = { ...cart, ...cartData, expertName: expertName };
     if (!cart) {
@@ -100,8 +101,9 @@ export class CartService {
     cartDataRepository
       .leftJoinAndSelect('cart.expert', 'expert')
       .where('cart.id = :id', { id: id });
-    const expert = await cartDataRepository.getOne();
-    return expert.expert.name;
+    const cart = await cartDataRepository.getOne();
+
+    return cart.expert().uName;
   }
 
   @ApiOperation({ summary: 'Update a cart' })
