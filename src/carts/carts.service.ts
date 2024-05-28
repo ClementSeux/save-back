@@ -42,7 +42,7 @@ export class CartService {
     try {
       const token = authHeader.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const expertId = decoded['id'];
+      const expertId = await decoded['id'];
       const expert = await this.userRepository.findOneBy({ id: expertId });
       if (!expert) {
         throw new NotFoundException(`Expert #${expertId} not found`);
@@ -50,7 +50,7 @@ export class CartService {
 
       return await this.cartRepository.save({
         ...createCartDto,
-        expertId: expert,
+        expertId: expert.id,
       });
     } catch (error) {
       throw new ConflictException(error.message);
