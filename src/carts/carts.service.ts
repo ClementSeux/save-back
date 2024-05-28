@@ -83,32 +83,31 @@ export class CartService {
     cartDataRepository
       .leftJoinAndSelect('cart.steps', 'step')
       .leftJoinAndSelect('step.item', 'item')
+      .leftJoinAndSelect('cart.expert', 'expert')
       .where('cart.id = :id', { id: id });
 
     const cartData = await cartDataRepository.getOne();
-    const expertName = await this.findExpertName(id);
-    return { expertName: expertName };
 
-    const returnData = { ...cart, ...cartData, expertName: expertName };
+    const returnData = { ...cart, ...cartData };
     if (!cart) {
       throw new NotFoundException(`Cart #${id} not found`);
     }
     return returnData;
   }
 
-  async findExpertName(id: number): Promise<string> {
-    const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
-    cartDataRepository
-      .leftJoinAndSelect('cart.expert', 'expert')
-      .where('cart.id = :id', { id: id });
-    const cart = await cartDataRepository.getOne();
-    // Check if cart and expert are defined before accessing uName
-    if (cart && cart.expert) {
-      return cart.expert.uName;
-    } else {
-      return ''; // Return a default value or handle the case when expert is not found
-    }
-  }
+  // async findExpertName(id: number): Promise<string> {
+  //   const cartDataRepository = this.cartRepository.createQueryBuilder('cart');
+  //   cartDataRepository
+  //     .leftJoinAndSelect('cart.expert', 'expert')
+  //     .where('cart.id = :id', { id: id });
+  //   const cart = await cartDataRepository.getOne();
+  //   // Check if cart and expert are defined before accessing uName
+  //   if (cart && cart.expert) {
+  //     return cart.expert.uName;
+  //   } else {
+  //     return ''; // Return a default value or handle the case when expert is not found
+  //   }
+  // }
 
   @ApiOperation({ summary: 'Update a cart' })
   @ApiNotFoundResponse({
