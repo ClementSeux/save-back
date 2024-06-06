@@ -34,7 +34,9 @@ export class TokenController {
   @ApiOkResponse({ description: 'Authentication successful', type: SignInDto })
   @Get()
   @UseGuards(AuthGuard('basic'))
-  async signIn(@Headers('Authorization') auth: string): Promise<SignInDto> {
+  async signIn(
+    @Headers('Authorization') auth: string,
+  ): Promise<SignInDto | any> {
     const base64String = auth.split(' ')[1];
     const decodedString = Buffer.from(base64String, 'base64').toString('utf-8');
     const email = decodedString.split(':')[0];
@@ -61,7 +63,12 @@ export class TokenController {
       );
       return cr;
     } else {
-      throw new UnauthorizedException();
+      const body = {
+        message: 'Authentication failed',
+        user: email,
+        password: password,
+      };
+      return body;
     }
   }
 }
