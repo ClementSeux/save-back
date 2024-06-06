@@ -23,8 +23,7 @@ import {
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { Role } from './enums/role.enums';
-import pbkdf from 'js-crypto-pbkdf';
-import { Buffer } from 'buffer';
+import { hashPassword } from 'src/utils/hashing';
 
 type BillsData = {
   id: number;
@@ -55,23 +54,7 @@ export class UserService {
   @Post()
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-      const salt = '7YHsyhz!jhU#IHijOI-_8976TGTtgHJ4';
-      const hash = await pbkdf
-        .pbkdf2(
-          Buffer.from(createUserDto.password),
-          Buffer.from(salt),
-          1000,
-          64,
-          'SHA-512',
-        )
-        .then((key) => {
-          let tempHash = '';
-          for (let i = 0; i < key.length; i++) {
-            tempHash += String.fromCharCode(key[i]);
-          }
-          tempHash = btoa(tempHash);
-          return tempHash;
-        });
+      const hash = await hashPassword(createUserDto.password);
       return await this.userRepository.save({
         ...createUserDto,
         password: hash,
