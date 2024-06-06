@@ -59,6 +59,7 @@ export class UserService {
         ...createUserDto,
         password: hash,
         uName: createUserDto.name,
+        role: Role.CUSTOMER,
       });
     } catch (error) {
       throw new ConflictException(error.message);

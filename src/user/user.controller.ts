@@ -30,8 +30,8 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  // @UseGuards(RolesGuard)
-  // @Roles(Role.ADMIN)
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   @Get()
   findAll() {
     return this.userService.findAll();
@@ -52,8 +52,8 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  // @UseGuards(RolesGuard)
-  // @Roles(Role.ADMIN)
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);

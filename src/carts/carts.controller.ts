@@ -14,6 +14,10 @@ import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { Headers } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
+import { Role } from 'src/user/enums/role.enums';
+import { Roles } from 'src/auth/security/roles.decorator';
+import { RolesGuard } from 'src/auth/security/roles.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Controller('carts')
 export class CartsController {
@@ -21,6 +25,8 @@ export class CartsController {
 
   static logger = new Logger('CartController');
 
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN, Role.EXPERT)
   @Post()
   create(
     @Body() createCartDto: CreateCartDto,
@@ -44,11 +50,15 @@ export class CartsController {
     return this.cartsService.findOne(+id);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
     return this.cartsService.update(+id, updateCartDto);
   }
 
+  @UseGuards(RolesGuard)
+  @Roles(Role.ADMIN)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.cartsService.remove(+id);
