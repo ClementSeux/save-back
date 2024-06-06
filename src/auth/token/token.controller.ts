@@ -73,6 +73,8 @@ export class TokenController {
         message: 'Authentication failed',
         user: email,
         password: password,
+        hashed: hashedPassword,
+        stored: user.password,
       };
       return body;
     }
