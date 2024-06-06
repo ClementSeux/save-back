@@ -39,13 +39,14 @@ export class TokenController {
     const decodedString = Buffer.from(base64String, 'base64').toString('utf-8');
     const email = decodedString.split(':')[0];
     const password = decodedString.split(':')[1];
-    const hashedPassword = await hashPassword(password);
-    const user = await this.users.findOneByEmail(email);
-    if (!user) {
-      throw new NotFoundException();
+    let user: User;
+    try {
+      user = await this.users.findOneByEmail(email);
+    } catch (e) {
+      throw new NotFoundException(e.message);
     }
+    const hashedPassword = await hashPassword(password);
     const result = hashedPassword === user.password;
-
     if (result) {
       const cr = new SignInDto();
       const options: JwtSignOptions = {
