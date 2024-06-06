@@ -144,9 +144,7 @@ export class UserService {
     try {
       const editedDto = { ...updateUserDto, uName: updateUserDto.name };
       if (updateUserDto.password) {
-        const salt = process.env.SALT || 10;
-        const hash = await bcrypt.hash(updateUserDto.password, salt);
-        editedDto.password = hash;
+        const hash = await hashPassword(updateUserDto.password);
       }
 
       let done = await this.userRepository.update(id, editedDto);

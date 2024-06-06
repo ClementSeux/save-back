@@ -21,7 +21,7 @@ import { Bill } from 'src/bills/entities/bill.entity';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'banane',
+      secret: process.env.JWT_SECRET || 'SCY789JDZ98_HDZEGXEZH89',
       signOptions: {
         audience: process.env.JWT_AUDIENCE || 'save.com',
       },
