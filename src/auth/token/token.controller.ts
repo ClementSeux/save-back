@@ -33,7 +33,7 @@ export class TokenController {
   @ApiUnauthorizedResponse({ description: 'Authentication failed' })
   @ApiOkResponse({ description: 'Authentication successful', type: SignInDto })
   @Get()
-  @UseGuards(AuthGuard('basic'))
+  // @UseGuards(AuthGuard('basic'))
   async signIn(
     @Headers('Authorization') auth: string,
   ): Promise<SignInDto | any> {
