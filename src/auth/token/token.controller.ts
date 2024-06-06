@@ -37,6 +37,12 @@ export class TokenController {
   async signIn(
     @Headers('Authorization') auth: string,
   ): Promise<SignInDto | any> {
+    if (!auth) {
+      return {
+        message: 'Authentication failed, no auth header',
+      };
+    }
+
     const base64String = auth.split(' ')[1];
     const decodedString = Buffer.from(base64String, 'base64').toString('utf-8');
     const email = decodedString.split(':')[0];
