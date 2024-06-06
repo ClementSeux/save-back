@@ -46,8 +46,7 @@ export class TokenController {
       throw new NotFoundException(e.message);
     }
     const hashedPassword = await hashPassword(password);
-    const result = hashedPassword === user.password;
-    if (result) {
+    if (hashedPassword === user.password) {
       const cr = new SignInDto();
       const options: JwtSignOptions = {
         secret: process.env.JWT_SECRET,
