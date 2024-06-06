@@ -145,6 +145,7 @@ export class UserService {
       const editedDto = { ...updateUserDto, uName: updateUserDto.name };
       if (updateUserDto.password) {
         const hash = await hashPassword(updateUserDto.password);
+        editedDto.password = hash;
       }
 
       let done = await this.userRepository.update(id, editedDto);
